@@ -1,0 +1,58 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Ancizar Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+
+}
+
+:root {
+    --primary-color: #EB1E25; /* Red */
+    --secondary-color: #ff4500; /* OrangeRed */
+    --background-color: #f4f4f4;
+    --text-color: #333;
+    --white: #ffffff;
+    --black: #0B1226;
+}
+
+
+.main-container {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+
+    // ≥576px
+    @media (min-width: 576px) {
+        max-width: 540px;
+    }
+
+    // ≥768px
+    @media (min-width: 768px) {
+        max-width: 720px;
+    }
+
+    // ≥992px
+    @media (min-width: 992px) {
+        max-width: 960px;
+    }
+
+    // ≥1200px
+    @media (min-width: 1200px) {
+        max-width: 1140px;
+    }
+
+    // ≥1400px
+    @media (min-width: 1400px) {
+        max-width: 1320px;
+    }
+}
+
+
+
+

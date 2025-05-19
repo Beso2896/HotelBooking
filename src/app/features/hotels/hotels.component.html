@@ -1,0 +1,37 @@
+<div class="hotels-container">
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <div class="filter-wrapper">
+            <select class="form-select" (change)="filterByCity($event)">
+                <option value="">All Cities</option>
+                <option *ngFor="let city of getCities()" [value]="city">
+                    {{city}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Hotels Grid -->
+    <div class="hotels-grid">
+        <div class="hotel-card" *ngFor="let hotel of hotels">
+            <div class="hotel-image">
+                <img [src]="hotel.featuredImage" [alt]="hotel.name">
+            </div>
+            <div class="hotel-content">
+                <h3 class="hotel-name">{{hotel.name}}</h3>
+                <div class="hotel-info">
+                    <p class="hotel-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        {{hotel.city}}
+                    </p>
+                </div>
+                <p class="hotel-description">{{hotel.description}}</p>
+                <a href="/rooms">
+                    <button class="view-rooms-btn">
+                        View Rooms
+                    </button>                    
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

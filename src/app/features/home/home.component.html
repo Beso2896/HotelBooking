@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="home-video">
+        <video class="home-video" src="video/colorsofgeorgia.mp4" autoplay [muted]="'muted'" loop></video>
+    </div>
+    <div class="overlay">
+
+    </div>
+
+    <div class="main-container">
+        <div class="home-container">
+            <div class="home-content">
+                <h1>Welcome to <span id="h">Hotel</span> <span id="b">Booking.</span></h1>
+                <p>For nine years, our company has proudly delivered unparalleled service in Georgia, boasting licensed guides, top-notch vehicles, and an unwavering commitment to safety.</p>
+                <a routerLink="/hotels" class="btn">Explore Hotels</a>
+            </div>            
+        </div>
+    </div> 
+</div>
+
+@if (topRooms.length > 0) {
+    <div class="main-container">
+        <a routerLink="/rooms" style="text-decoration: none;">
+            <div class="rooms-container">
+                @for (item of topRooms; track $index) {
+                    <app-hotel-room-card
+                    imageUrl="{{item.images[0].source}}"
+                    roomName="{{item.name}}"
+                    pricePerNight="{{item.pricePerNight}}"
+                    currencySymbol="₾"
+                    viewDetails="View Details"
+                    >
+                    </app-hotel-room-card>
+                }                        
+            </div>
+        </a>
+    </div>
+}
+@else {
+    <div class="loading">
+        <div class="loading-animation"></div>
+        <h1>Loading...</h1>
+    </div>
+}
+
+
+
+
+
+
