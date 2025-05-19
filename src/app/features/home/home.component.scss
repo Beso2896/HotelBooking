@@ -89,13 +89,35 @@
         }
     }
 }
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--black);
+  font-size: 1.5rem;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
 
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.divider::before {
+  margin-right: 0.5em;
+}
+
+.divider::after {
+  margin-left: 0.5em;
+}
 .rooms-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 2rem;
-    margin-top: 2rem;
 
     @media (max-width: 576px) {
         grid-template-columns: repeat(1, 1fr);
@@ -103,6 +125,74 @@
 
     @media (max-width: 1024px) and (min-width: 576px) {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.usp-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat (1, 1fr) ;
+    gap: 0.75rem;
+    @media (max-width: 576px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    @media (max-width: 1024px) and (min-width: 576px) {
+        grid-template-columns: repeat(2, 1fr);
+    }    
+    .usp-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 2rem 0rem;
+        gap: 1rem;
+        color: var(--black);
+        font-size: clamp(1rem, 2vw, 1rem);
+        .usp-text {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: #5e5e5e;
+            font-weight: 600;
+        }
+        p {
+            color: var(--secondary-color);
+            font-weight: 300;            
+        }
+        .read-more {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            i {
+                font-size: 0.75rem;
+            }
+        }
+        .read-more:hover {
+            color: var(--black);
+            transition: color 0.3s ease-in-out;
+        }
+        a {
+            text-decoration: none;
+        }
+    }
+    .icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5.5rem;
+    height: 5.5rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 100%;
+    }
+    .icon-wrapper:hover {
+        background-color: var(--primary-color);
+        transition: background-color 0.3s ease-in-out;
+        color: var(--white);     
+    }
+    .icon-wrapper:hover i {
+        transform: scale(1.2);
+        transition: transform 0.3s ease-in-out;
     }
 }
 

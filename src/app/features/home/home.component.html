@@ -19,6 +19,7 @@
 
 @if (topRooms.length > 0) {
     <div class="main-container">
+        <div class="divider"><span>Guest Favorite Rooms</span></div>
         <a routerLink="/rooms" style="text-decoration: none;">
             <div class="rooms-container">
                 @for (item of topRooms; track $index) {
@@ -33,6 +34,45 @@
                 }                        
             </div>
         </a>
+
+        <div class="divider"><span>USP Section</span></div>
+        <div class="usp-section">
+            <div class="usp-content">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-martini-glass"></i>
+                </div>
+                <div class="usp-text">Beverages included</div>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa tempore aliquid eos veniam excepturi expedita dolorum ad consequatur.</p>
+                <a href="#"><div class="read-more">Read more<i class="fa-solid fa-angle-right"></i> </div></a>
+            </div>
+
+            <div class="usp-content">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-credit-card"></i>
+                </div>
+                <div class="usp-text">Stay First, Pay After!</div>                
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa tempore aliquid eos veniam excepturi expedita dolorum ad consequatur.</p>
+                <a href="#"><div class="read-more">Read more<i class="fa-solid fa-angle-right"></i> </div></a>
+            </div>
+
+            <div class="usp-content">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-utensils"></i>
+                </div>
+                <div class="usp-text">24 Hour Restaurant</div>  
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa tempore aliquid eos veniam excepturi expedita dolorum ad consequatur.</p>
+                <a href="#"><div class="read-more">Read more<i class="fa-solid fa-angle-right"></i> </div></a>
+            </div>
+
+            <div class="usp-content">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-droplet"></i>            
+                </div>
+                <div class="usp-text">Spa Included!</div>                
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa tempore aliquid eos veniam excepturi expedita dolorum ad consequatur.</p>
+                <a href="#"><div class="read-more">Read more<i class="fa-solid fa-angle-right"></i> </div></a>
+            </div>
+        </div>
     </div>
 }
 @else {
