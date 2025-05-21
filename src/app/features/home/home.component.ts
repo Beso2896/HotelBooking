@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ApiService } from '../../shared/services/api.service';
 
 @Component({
   selector: 'app-home',
@@ -10,9 +11,9 @@ import { Component } from '@angular/core';
 export class HomeComponent {
 
     topRooms: any[] = [];
+    roomId: string = '';
 
-
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, public apiService: ApiService) {
         this.http.get<any[]>('https://hotelbooking.stepprojects.ge/api/Rooms/GetAll').subscribe(data => {
         this.topRooms = this.getTopRooms(data);
         });
@@ -23,6 +24,14 @@ export class HomeComponent {
         return rooms
         .sort((a, b) => (b.bookedDates?.length || 0) - (a.bookedDates?.length || 0))
         .slice(0, 6);
+    }
+
+
+    getRoomsData() {
+        this.apiService.getData(this.roomId).subscribe(data => {
+            console.log(data);
+            
+        })
     }
 }
 

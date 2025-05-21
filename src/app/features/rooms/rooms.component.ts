@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../../shared/services/api.service';
+
+
 
 @Component({
   selector: 'app-rooms',
@@ -8,13 +10,14 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./rooms.component.scss']
 })
 export class RoomsComponent {
-  rooms: any[] = [];
+    roomId: string = '';
+    
+    constructor(public apiService: ApiService) {}
 
-  constructor(private http: HttpClient) {
-    this.http.get<any[]>('https://hotelbooking.stepprojects.ge/api/Rooms/GetAll')
-      .subscribe(data => {
-        console.log(data);
-        this.rooms = data;
-      });
-  }
-}
+    getRoomsData() {
+        this.apiService.getData(this.roomId).subscribe(data => {
+            console.log(data);
+            
+        })
+    }}
+

@@ -1,62 +1,92 @@
-<div class="container mt-4">
-  <h2 class="text-center mb-4">Available Rooms</h2>
+<!-- rooms.component.html
+<div class="container">
+  <h2 class="page-title">Hotel Rooms</h2>
+  
 
-  <div class="row" *ngIf="rooms.length > 0; else loading">
-    <div class="col-md-4 mb-4" *ngFor="let room of rooms; let i = index">
-      <div class="card h-100 shadow-sm">
-        <!-- Carousel inside card -->
-        <div *ngIf="room.images?.length > 0" [id]="'carouselRoom' + i" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div
-              *ngFor="let img of room.images; let j = index"
-              class="carousel-item"
-              [class.active]="j === 0"
-            >
-              <img [src]="room.images[j].source" class="d-block w-100 room-image" alt="Room image {{ j + 1 }}">
-            </div>
+  <div class="filter-card">
+    <div class="filter-card__header">
+      <h5>Filter Rooms</h5>
+    </div>
+    <div class="filter-card__body">
+      <form [formGroup]="filterForm">
+        <div class="filter-form">
+
+          <div class="filter-form__group">
+            <label for="roomType" class="filter-form__label">Room Type</label>
+            <select class="filter-form__select" id="roomType" formControlName="roomType">
+              <option value="">All Types</option>
+              <option *ngFor="let type of roomTypes" [value]="type.name">{{ type.name }}</option>
+            </select>
           </div>
+          
 
-          <!-- Carousel Controls -->
-          <button
-            class="carousel-control-prev"
-            type="button"
-            [attr.data-bs-target]="'#carouselRoom' + i"
-            data-bs-slide="prev"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button
-            class="carousel-control-next"
-            type="button"
-            [attr.data-bs-target]="'#carouselRoom' + i"
-            data-bs-slide="next"
-          >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+          <div class="filter-form__group">
+            <label for="minPrice" class="filter-form__label">Min Price</label>
+            <input type="number" class="filter-form__input" id="minPrice" formControlName="minPrice" placeholder="Min">
+          </div>
+          <div class="filter-form__group">
+            <label for="maxPrice" class="filter-form__label">Max Price</label>
+            <input type="number" class="filter-form__input" id="maxPrice" formControlName="maxPrice" placeholder="Max">
+          </div>
+          
+
+          <div class="filter-form__group">
+            <label for="checkIn" class="filter-form__label">Check-in</label>
+            <input type="date" class="filter-form__input" id="checkIn" formControlName="checkIn">
+          </div>
+          <div class="filter-form__group">
+            <label for="checkOut" class="filter-form__label">Check-out</label>
+            <input type="date" class="filter-form__input" id="checkOut" formControlName="checkOut">
+          </div>
+          
+
+          <div class="filter-form__group filter-form__group--button">
+            <button type="button" class="button button--outline" (click)="resetFilters()">Reset</button>
+          </div>
         </div>
+      </form>
+    </div>
+  </div>
+  
 
-        <!-- Room Info -->
-        <div class="card-body">
-          <h5 class="card-title">{{ room.name || 'Room Name' }}</h5>
-          <p class="card-text">
-            <strong>Price:</strong> {{ room.price }} GEL<br>
-            <strong>Capacity:</strong> {{ room.capacity }}
-          </p>
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+  </div>
+  
+
+  <div class="room-grid">
+    <div class="room-card" *ngFor="let room of filteredRooms">
+      <div class="room-card__inner">
+        <div class="room-card__image-container">
+          <img *ngIf="room.imageUrl" [src]="room.imageUrl" class="room-card__image" alt="Room image">
+          <div *ngIf="!room.imageUrl" class="room-card__image-placeholder">
+            <span>No image available</span>
+          </div>
+        </div>
+        <div class="room-card__body">
+          <h5 class="room-card__title">{{ room.name }}</h5>
+          <h6 class="room-card__subtitle">{{ room.roomTypeName }}</h6>
+          <p class="room-card__description">{{ room.description }}</p>
+          <div class="room-card__footer">
+            <span class="room-card__price">{{ room.price | currency }}</span>
+            <button class="button button--primary" [routerLink]="['/rooms', room.id]">View Details</button>
+          </div>
+        </div>
+        <div class="room-card__hotel">
+          <small>Hotel: {{ room.hotelName }}</small>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Loading Spinner -->
-  <ng-template #loading>
-    <div class="text-center">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-      <p>Loading rooms...</p>
-    </div>
-  </ng-template>
+  <div *ngIf="filteredRooms.length === 0 && !loading" class="no-results">
+    No rooms match your current filters. Try adjusting your filter criteria.
+  </div>
 </div>
+ -->
 
+
+
+<h1>Enter Room ID</h1>
+<input type="text" placeholder="Example: 123" [(ngModel)]="roomId">
+<button (click)="getRoomsData()">Search</button>

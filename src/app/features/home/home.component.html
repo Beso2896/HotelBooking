@@ -20,7 +20,7 @@
 @if (topRooms.length > 0) {
     <div class="main-container">
         <div class="divider"><span>Guest Favorite Rooms</span></div>
-        <a routerLink="/rooms" style="text-decoration: none;">
+        <a routerLink="/rooms" style="text-decoration: none;" (click)="getRoomsData()">
             <div class="rooms-container">
                 @for (item of topRooms; track $index) {
                     <app-hotel-room-card

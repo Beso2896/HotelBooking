@@ -10,7 +10,9 @@ import { BookedRoomsComponent } from './features/booked-rooms/booked-rooms.compo
 import { FooterComponent } from './layout/footer/footer.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { provideHttpClient } from '@angular/common/http';
-import { HotelRoomCardComponent } from './features/components/hotel-room-card/hotel-room-card.component';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HotelRoomCardComponent } from './shared/components/hotel-room-card/hotel-room-card.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { HotelRoomCardComponent } from './features/components/hotel-room-card/ho
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent]
