@@ -1,0 +1,118 @@
+<div class="room-container">
+    @if (roomDetails) {
+        <div class="room-card">
+            <div class="image-gallery">
+                @if (roomDetails.images && roomDetails.images.length > 0) {
+                    <div class="main-image">
+                        @if (roomDetails.images[selectedImageIndex || 0].source) {
+                            <img 
+                                [src]="roomDetails.images[selectedImageIndex || 0].source" 
+                                [alt]="roomDetails.name"
+                                (error)="onImageError($event)"
+                            />
+                        }
+                    </div>
+                    @if (roomDetails.images.length > 1) {
+                        <div class="thumbnail-strip">
+                            @for (image of roomDetails.images; track image.id; let i = $index) {
+                                @if (image.source) {
+                                    <img 
+                                        [src]="image.source" 
+                                        [alt]="roomDetails.name"
+                                        class="thumbnail"
+                                        [class.active]="i === (selectedImageIndex || 0)"
+                                        (error)="onImageError($event)"
+                                        (click)="selectedImageIndex = i"
+                                    />
+                                }
+                            }
+                        </div>
+                    }
+                } 
+                @else {
+                    <div class="no-image">
+                        <p>No images available</p>
+                    </div>
+                }
+            </div>
+
+            <div class="room-details">
+                <div class="room-header">
+                    <h1 class="room-name">{{ roomDetails.name }}</h1>
+                    <div class="availability-badge" [class.available]="roomDetails.available" [class.unavailable]="!roomDetails.available">
+                        @if (roomDetails.available) { Available } @else { Unavailable }
+                    </div>
+                </div>
+
+                <div class="room-info">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Price per Night</span>
+                            <span class="value price">${{ roomDetails.pricePerNight }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Maximum Guests</span>
+                            <span class="value">{{ roomDetails.maximumGuests }} guests</span>
+                        </div>
+                        <!-- <div class="info-item">
+                            <span class="label">Room Type ID</span>
+                            <span class="value">{{ roomDetails.roomTypeId }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Hotel ID</span>
+                            <span class="value">{{ roomDetails.hotelId }}</span>
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="date-selection">
+                    <h3>Select Your Dates</h3>
+                    <div class="date-inputs">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Check-in Date</mat-label>
+                            <input
+                                matInput
+                                [matDatepicker]="picker1"
+                                readonly
+                                [matDatepickerFilter]="dateFilter"
+                            />
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Check-out Date</mat-label>
+                            <input
+                                matInput
+                                [matDatepicker]="picker2"
+                                readonly
+                                [matDatepickerFilter]="dateFilter"
+                            />
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Customer Name</span>
+                        <input type="text" placeholder="Please enter your name" />
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Phone Number</span>
+                        <input type="phone" placeholder="Please enter your phone number" />
+                    </div>                    
+                </div>
+
+                @if (roomDetails.available) {
+                    <div class="actions">
+                        <button class="btn btn-primary">Book Now</button>
+                    </div>
+                }
+            </div>
+        </div>
+    } @else {
+        <div class="loading">
+            <div class="spinner"></div>
+            <p>Loading room details...</p>
+        </div>
+    }
+</div>

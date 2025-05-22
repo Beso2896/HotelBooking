@@ -11,11 +11,12 @@ import { ApiService } from '../../shared/services/api.service';
 export class HomeComponent {
 
     topRooms: any[] = [];
-    roomId: string = '';
+    allRooms: any;
 
     constructor(private http: HttpClient, public apiService: ApiService) {
         this.http.get<any[]>('https://hotelbooking.stepprojects.ge/api/Rooms/GetAll').subscribe(data => {
         this.topRooms = this.getTopRooms(data);
+        
         });
     }
 
@@ -27,11 +28,6 @@ export class HomeComponent {
     }
 
 
-    getRoomsData() {
-        this.apiService.getData(this.roomId).subscribe(data => {
-            console.log(data);
-            
-        })
-    }
+
 }
 

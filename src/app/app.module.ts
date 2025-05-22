@@ -1,5 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HotelRoomCardComponent } from './shared/components/hotel-room-card/hotel-room-card.component';
+import { GetRoomComponent } from './features/get-room/get-room.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,8 +17,6 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { provideHttpClient } from '@angular/common/http';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HotelRoomCardComponent } from './shared/components/hotel-room-card/hotel-room-card.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +28,7 @@ import { HotelRoomCardComponent } from './shared/components/hotel-room-card/hote
     FooterComponent,
     NavbarComponent,
     HotelRoomCardComponent,
+    GetRoomComponent,
 
   ],
   imports: [
@@ -31,6 +36,9 @@ import { HotelRoomCardComponent } from './shared/components/hotel-room-card/hote
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent]

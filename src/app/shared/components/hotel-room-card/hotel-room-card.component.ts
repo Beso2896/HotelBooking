@@ -12,4 +12,5 @@ export class HotelRoomCardComponent {
     @Input() pricePerNight: string = '100';
     @Input() currencySymbol: string = '$';
     @Input() viewDetails: string = 'Click me';
+
 }

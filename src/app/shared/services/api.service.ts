@@ -11,4 +11,6 @@ export class ApiService {
   getData(roomId: string) {
     return this.http.get(`https://hotelbooking.stepprojects.ge/api/Rooms/GetRoom/${roomId}`);
   }
+
+  
 }

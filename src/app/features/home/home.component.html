@@ -20,20 +20,22 @@
 @if (topRooms.length > 0) {
     <div class="main-container">
         <div class="divider"><span>Guest Favorite Rooms</span></div>
-        <a routerLink="/rooms" style="text-decoration: none;" (click)="getRoomsData()">
             <div class="rooms-container">
-                @for (item of topRooms; track $index) {
-                    <app-hotel-room-card
-                    imageUrl="{{item.images[0].source}}"
-                    roomName="{{item.name}}"
-                    pricePerNight="{{item.pricePerNight}}"
-                    currencySymbol="₾"
-                    viewDetails="View Details"
-                    >
-                    </app-hotel-room-card>
-                }                        
+                <!-- @for (item of topRooms; track $index) { -->
+                    @for (item of topRooms; track $index) {
+                    <a href="/GetRoom/{{item.id}}">
+                        <app-hotel-room-card
+                        imageUrl="{{item.images[0].source}}"
+                        roomName="{{item.name}}"
+                        pricePerNight="{{item.pricePerNight}}"
+                        currencySymbol="₾"
+                        viewDetails="View Details"
+                        >
+                        </app-hotel-room-card>
+                    </a>
+                    }                    
+                <!-- }                         -->
             </div>
-        </a>
 
         <div class="divider"><span>USP Section</span></div>
         <div class="usp-section">
