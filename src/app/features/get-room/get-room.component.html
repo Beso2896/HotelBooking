@@ -9,6 +9,7 @@
                                 [src]="roomDetails.images[selectedImageIndex || 0].source" 
                                 [alt]="roomDetails.name"
                                 (error)="onImageError($event)"
+                                loading="lazy"
                             />
                         }
                     </div>
@@ -18,11 +19,17 @@
                                 @if (image.source) {
                                     <img 
                                         [src]="image.source" 
-                                        [alt]="roomDetails.name"
+                                        [alt]="roomDetails.name + ' - Image ' + (i + 1)"
                                         class="thumbnail"
                                         [class.active]="i === (selectedImageIndex || 0)"
                                         (error)="onImageError($event)"
                                         (click)="selectedImageIndex = i"
+                                        loading="lazy"
+                                        [attr.aria-label]="'View image ' + (i + 1) + ' of ' + roomDetails.images.length"
+                                        role="button"
+                                        tabindex="0"
+                                        (keydown.enter)="selectedImageIndex = i"
+                                        (keydown.space)="selectedImageIndex = i"
                                     />
                                 }
                             }
@@ -34,13 +41,52 @@
                         <p>No images available</p>
                     </div>
                 }
+                
+                <div class="amenities-section">
+                    <div class="divider">
+                        <span>Room Amenities</span>
+                    </div>
+                    <div class="table-container">
+                        <table role="table" aria-label="Room amenities">
+                            <tbody>
+                                <tr id="rowOne">
+                                    <td>Double bed</td>
+                                    <td>Free Internet</td>
+                                    <td>Free Newspaper</td>
+                                </tr>
+                                <tr>
+                                    <td>60 square meter</td>
+                                    <td>Beach view</td>
+                                    <td>2 persons</td>
+                                </tr>
+                                <tr id="rowOne">
+                                    <td>Breakfast included</td>
+                                    <td>Jacuzzi</td>
+                                    <td>Flat Screen TV</td>
+                                </tr>
+                                <tr>
+                                    <td>Air Conditioning</td>
+                                    <td>Private Balcony</td>
+                                    <td>Room Service</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
             <div class="room-details">
                 <div class="room-header">
                     <h1 class="room-name">{{ roomDetails.name }}</h1>
-                    <div class="availability-badge" [class.available]="roomDetails.available" [class.unavailable]="!roomDetails.available">
-                        @if (roomDetails.available) { Available } @else { Unavailable }
+                    <div class="availability-badge" 
+                         [class.available]="roomDetails.available" 
+                         [class.unavailable]="!roomDetails.available"
+                         [attr.aria-label]="roomDetails.available ? 'Room is available' : 'Room is unavailable'">
+                        @if (roomDetails.available) { 
+                            <span aria-hidden="true">✓</span> Available 
+                        } @else { 
+                            <span aria-hidden="true">✗</span> Unavailable 
+                        }
                     </div>
                 </div>
 
@@ -48,71 +94,106 @@
                     <div class="info-grid">
                         <div class="info-item">
                             <span class="label">Price per Night</span>
-                            <span class="value price">${{ roomDetails.pricePerNight }}</span>
+                            <span class="value price" 
+                                  [attr.aria-label]="'Price: ' + roomDetails.pricePerNight + ' dollars per night'">
+                                ${{ roomDetails.pricePerNight }}
+                            </span>
                         </div>
                         <div class="info-item">
                             <span class="label">Maximum Guests</span>
-                            <span class="value">{{ roomDetails.maximumGuests }} guests</span>
+                            <span class="value">
+                                {{ roomDetails.maximumGuests }} {{ roomDetails.maximumGuests === 1 ? 'guest' : 'guests' }}
+                            </span>
                         </div>
-                        <!-- <div class="info-item">
-                            <span class="label">Room Type ID</span>
-                            <span class="value">{{ roomDetails.roomTypeId }}</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="label">Hotel ID</span>
-                            <span class="value">{{ roomDetails.hotelId }}</span>
-                        </div> -->
                     </div>
                 </div>
 
                 <div class="date-selection">
-                    <h3>Select Your Dates</h3>
+                    <h3>Select Your Stay</h3>
                     <div class="date-inputs">
-                        <mat-form-field appearance="fill">
+                        <mat-form-field appearance="fill" class="date-field">
                             <mat-label>Check-in Date</mat-label>
                             <input
                                 matInput
-                                [matDatepicker]="picker1"
+                                [matDatepicker]="checkInPicker"
+                                [matDatepickerFilter]="checkInDateFilter"
+                                [formControl]="checkInDate"
+                                placeholder="Select check-in date"
                                 readonly
-                                [matDatepickerFilter]="dateFilter"
+                                aria-label="Select check-in date"
                             />
-                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                            <mat-datepicker #picker1></mat-datepicker>
+                            <mat-datepicker-toggle matSuffix [for]="checkInPicker" aria-label="Open calendar"></mat-datepicker-toggle>
+                            <mat-datepicker #checkInPicker [dateClass]="dateClass"></mat-datepicker>
                         </mat-form-field>
 
-                        <mat-form-field appearance="fill">
+                        <mat-form-field appearance="fill" class="date-field">
                             <mat-label>Check-out Date</mat-label>
                             <input
                                 matInput
-                                [matDatepicker]="picker2"
+                                [matDatepicker]="checkOutPicker"
+                                [matDatepickerFilter]="checkOutDateFilter"
+                                [formControl]="checkOutDate"
+                                placeholder="Select check-out date"
                                 readonly
-                                [matDatepickerFilter]="dateFilter"
+                                aria-label="Select check-out date"
                             />
-                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                            <mat-datepicker #picker2></mat-datepicker>
+                            <mat-datepicker-toggle matSuffix [for]="checkOutPicker" aria-label="Open calendar"></mat-datepicker-toggle>
+                            <mat-datepicker #checkOutPicker [dateClass]="dateClass"></mat-datepicker>
                         </mat-form-field>
                     </div>
-                    <div class="info-item">
-                        <span class="label">Customer Name</span>
-                        <input type="text" placeholder="Please enter your name" />
+                
+                    <div class="guest-details">
+                        <div class="info-item">
+                            <label class="label" for="guestName">Guest Name</label>
+                            <input 
+                                id="guestName"
+                                type="text" 
+                                placeholder="Enter your full name" 
+                                aria-required="true"
+                                autocomplete="name"
+                            />
+                        </div>
+                        <div class="info-item">
+                            <label class="label" for="contactNumber">Contact Number</label>
+                            <input 
+                                id="contactNumber"
+                                type="tel" 
+                                placeholder="Enter your phone number" 
+                                aria-required="true"
+                                autocomplete="tel"
+                            />
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <span class="label">Phone Number</span>
-                        <input type="phone" placeholder="Please enter your phone number" />
-                    </div>                    
                 </div>
 
                 @if (roomDetails.available) {
                     <div class="actions">
-                        <button class="btn btn-primary">Book Now</button>
+                        <button 
+                            class="btn btn-primary" 
+                            [disabled]="!checkInDate.value || !checkOutDate.value"
+                            (click)="onBookNow()"
+                            [attr.aria-label]="(!checkInDate.value || !checkOutDate.value) ? 'Please select dates to reserve' : 'Reserve room now'"
+                        >
+                        Reserve
+                        </button>
+                    </div>
+                } @else {
+                    <div class="actions">
+                        <button class="btn btn-primary" disabled aria-label="Room is currently unavailable for booking">
+                            Currently Unavailable
+                        </button>
                     </div>
                 }
             </div>
         </div>
     } @else {
-        <div class="loading">
-            <div class="spinner"></div>
+        <div class="loading" role="status" aria-label="Loading room details">
+            <div class="spinner" aria-hidden="true"></div>
             <p>Loading room details...</p>
         </div>
     }
+
+    <div class="divider">
+        <span>Guest Favorite Rooms</span>
+    </div>
 </div>

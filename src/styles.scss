@@ -53,3 +53,50 @@
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+// Global datepicker styles
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+background-color: var(--white)!important;
+}
+.mat-datepicker-popup {
+  .mat-calendar {
+    background-color: #ffffff !important;
+  }
+  
+  .mat-calendar-header {
+    background-color: #ffffff !important;
+    
+    .mat-calendar-previous-button,
+    .mat-calendar-next-button {
+      color: #333 !important;
+      
+      &:hover {
+        background-color: rgba(235, 30, 37, 0.1) !important;
+        color: #EB1E25 !important;
+      }
+    }
+    
+    .mat-calendar-period-button {
+      color: #0B1226 !important;
+      font-weight: 600 !important;
+      
+      &:hover {
+        background-color: rgba(235, 30, 37, 0.1) !important;
+        color: #EB1E25 !important;
+      }
+    }
+  }
+  
+  .mat-calendar-body-selected .mat-calendar-body-cell-content {
+    background-color: #EB1E25 !important;
+    color: #ffffff !important;
+  }
+  
+  .mat-calendar-body-today .mat-calendar-body-cell-content {
+    background-color: #f4f4f4 !important;
+    color: #0B1226 !important;
+    border: 1px solid #EB1E25 !important;
+  }
+}
