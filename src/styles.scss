@@ -16,6 +16,7 @@
     --text-color: #333;
     --white: #ffffff;
     --black: #0B1226;
+    --mat-sys-primary: #EB1E25 !important;
 }
 
 
@@ -100,3 +101,19 @@ background-color: var(--white)!important;
     border: 1px solid #EB1E25 !important;
   }
 }
+
+  .mat-mdc-form-field-flex {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+
+  .mat-mdc-form-field-infix {
+    min-height: auto !important;
+
+  }
+
+

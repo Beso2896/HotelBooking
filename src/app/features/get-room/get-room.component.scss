@@ -47,8 +47,6 @@ $breakpoints: (
   grid-template-columns: 1fr;
   gap: 0;
   min-height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   
   @include respond-to('md') {
     min-height: 500px;
@@ -693,6 +691,11 @@ $breakpoints: (
   content: "";
   flex: 1;
   border-bottom: 1px solid #ccc;
+}
+
+.additional-border {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
 }
 
 // Additional responsive utilities

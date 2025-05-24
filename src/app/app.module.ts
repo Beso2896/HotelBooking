@@ -16,6 +16,7 @@ import { BookedRoomsComponent } from './features/booked-rooms/booked-rooms.compo
 import { FooterComponent } from './layout/footer/footer.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { provideHttpClient } from '@angular/common/http';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { provideHttpClient } from '@angular/common/http';
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
+    MatFormFieldModule,
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent]

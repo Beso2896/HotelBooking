@@ -1,88 +1,157 @@
-<!-- rooms.component.html
-<div class="container">
-  <h2 class="page-title">Hotel Rooms</h2>
-  
+<div class="rooms-container">
+  <!-- Filter Section -->
+  <div class="filter-section">
+    <h2>Find Your Perfect Room</h2>
+    <div class="filters-wrapper">
+      <!-- Room Type Filter -->
+      <div class="filter-group">
+        <label for="roomType">Room Type</label>
+        <select 
+          id="roomType" 
+          [(ngModel)]="selectedRoomTypeId" 
+          class="filter-select">
+          <option value="0">All Types</option>
+          <option 
+            *ngFor="let roomType of roomTypes" 
+            [value]="roomType.id">
+            {{ roomType.name }}
+          </option>
+        </select>
+      </div>
 
-  <div class="filter-card">
-    <div class="filter-card__header">
-      <h5>Filter Rooms</h5>
-    </div>
-    <div class="filter-card__body">
-      <form [formGroup]="filterForm">
-        <div class="filter-form">
+      <!-- Price Range Filters -->
+      <div class="filter-group">
+        <label for="priceFrom">Min Price ($)</label>
+        <input 
+          type="number" 
+          id="priceFrom"
+          [(ngModel)]="priceFrom" 
+          placeholder="0"
+          min="0"
+          class="filter-input">
+      </div>
 
-          <div class="filter-form__group">
-            <label for="roomType" class="filter-form__label">Room Type</label>
-            <select class="filter-form__select" id="roomType" formControlName="roomType">
-              <option value="">All Types</option>
-              <option *ngFor="let type of roomTypes" [value]="type.name">{{ type.name }}</option>
-            </select>
-          </div>
-          
+      <div class="filter-group">
+        <label for="priceTo">Max Price ($)</label>
+        <input 
+          type="number" 
+          id="priceTo"
+          [(ngModel)]="priceTo" 
+          placeholder="1000"
+          min="0"
+          class="filter-input">
+      </div>
 
-          <div class="filter-form__group">
-            <label for="minPrice" class="filter-form__label">Min Price</label>
-            <input type="number" class="filter-form__input" id="minPrice" formControlName="minPrice" placeholder="Min">
-          </div>
-          <div class="filter-form__group">
-            <label for="maxPrice" class="filter-form__label">Max Price</label>
-            <input type="number" class="filter-form__input" id="maxPrice" formControlName="maxPrice" placeholder="Max">
-          </div>
-          
+      <!-- Date Filters -->
+      <div class="filter-group">
+        <label for="checkIn">Check-in Date</label>
+        <mat-form-field class="date-picker">
+          <input 
+            matInput 
+            [matDatepicker]="checkInPicker"
+            [(ngModel)]="checkInDate"
+            [min]="minDate"
+            (dateChange)="onCheckInDateChange()"
+            placeholder="Select date">
+          <mat-datepicker-toggle matSuffix [for]="checkInPicker"></mat-datepicker-toggle>
+          <mat-datepicker #checkInPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
 
-          <div class="filter-form__group">
-            <label for="checkIn" class="filter-form__label">Check-in</label>
-            <input type="date" class="filter-form__input" id="checkIn" formControlName="checkIn">
-          </div>
-          <div class="filter-form__group">
-            <label for="checkOut" class="filter-form__label">Check-out</label>
-            <input type="date" class="filter-form__input" id="checkOut" formControlName="checkOut">
-          </div>
-          
+      <div class="filter-group">
+        <label for="checkOut">Check-out Date</label>
+        <mat-form-field class="date-picker">
+          <input 
+            matInput 
+            [matDatepicker]="checkOutPicker"
+            [(ngModel)]="checkOutDate"
+            [min]="minCheckOutDate"
+            placeholder="Select date">
+          <mat-datepicker-toggle matSuffix [for]="checkOutPicker"></mat-datepicker-toggle>
+          <mat-datepicker #checkOutPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
 
-          <div class="filter-form__group filter-form__group--button">
-            <button type="button" class="button button--outline" (click)="resetFilters()">Reset</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-  
-
-  <div *ngIf="loading" class="loading-spinner">
-    <div class="spinner"></div>
-  </div>
-  
-
-  <div class="room-grid">
-    <div class="room-card" *ngFor="let room of filteredRooms">
-      <div class="room-card__inner">
-        <div class="room-card__image-container">
-          <img *ngIf="room.imageUrl" [src]="room.imageUrl" class="room-card__image" alt="Room image">
-          <div *ngIf="!room.imageUrl" class="room-card__image-placeholder">
-            <span>No image available</span>
-          </div>
-        </div>
-        <div class="room-card__body">
-          <h5 class="room-card__title">{{ room.name }}</h5>
-          <h6 class="room-card__subtitle">{{ room.roomTypeName }}</h6>
-          <p class="room-card__description">{{ room.description }}</p>
-          <div class="room-card__footer">
-            <span class="room-card__price">{{ room.price | currency }}</span>
-            <button class="button button--primary" [routerLink]="['/rooms', room.id]">View Details</button>
-          </div>
-        </div>
-        <div class="room-card__hotel">
-          <small>Hotel: {{ room.hotelName }}</small>
-        </div>
+      <!-- Action Buttons -->
+      <div class="filter-actions">
+        <button 
+          class="btn btn-primary" 
+          (click)="onApplyFilters()"
+          [disabled]="loading">
+          <span *ngIf="loading">Searching...</span>
+          <span *ngIf="!loading">Search</span>
+        </button>
+        <button 
+          class="btn btn-secondary" 
+          (click)="onResetFilters()"
+          [disabled]="loading">
+          Reset
+        </button>
       </div>
     </div>
   </div>
 
-  <div *ngIf="filteredRooms.length === 0 && !loading" class="no-results">
-    No rooms match your current filters. Try adjusting your filter criteria.
+  <!-- Error Message -->
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading rooms...</p>
+  </div>
+
+  <!-- Rooms Grid -->
+  <div *ngIf="!loading && !error" class="rooms-grid">
+    <div class="rooms-count">
+      <h3>{{ rooms.length }} room(s) found</h3>
+    </div>
+
+    <div class="grid-container">
+      <div *ngFor="let room of rooms" class="room-card">
+        <div class="room-image">
+          <img [src]="getMainImage(room)" [alt]="room.name" />
+          <div class="room-status" [class.available]="room.available" [class.unavailable]="!room.available">
+            {{ room.available ? 'Available' : 'Unavailable' }}
+          </div>
+        </div>
+        
+        <div class="room-details">
+          <h4 class="room-name">{{ room.name }}</h4>
+          <p class="room-type">{{ getRoomTypeName(room.roomTypeId) }}</p>
+          
+          <div class="room-info">
+            <div class="info-item">
+              <span class="label">Max Guests:</span>
+              <span class="value">{{ room.maximumGuests }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Hotel Name:</span>
+              <span class="value">{{ getHotelName(room.hotelId) }}</span>
+            </div>
+          </div>
+
+          <div class="room-price">
+            <span class="price">${{ room.pricePerNight }}</span>
+            <span class="period">per night</span>
+          </div>
+
+          <div class="room-actions">
+            <a href="/GetRoom/{{room.id}}">
+                <button class="btn btn-book" [disabled]="!room.available">
+                {{ room.available ? 'Book Now' : 'Not Available' }}
+                </button>                
+            </a>
+          </div>
+        </div>
+      </div>      
+    </div>
+
+    <!-- No Results -->
+    <div *ngIf="rooms.length === 0" class="no-results">
+      <h3>No rooms found</h3>
+      <p>Try adjusting your filters to see more results.</p>
+    </div>
   </div>
 </div>
- -->
-
-
