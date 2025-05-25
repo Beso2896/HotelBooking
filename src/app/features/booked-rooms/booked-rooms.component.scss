@@ -1,0 +1,10 @@
+table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    padding: 2rem;
+    th {
+        padding: 8px;
+        border-bottom: 1px solid var(--primary-colour);
+    }
+}

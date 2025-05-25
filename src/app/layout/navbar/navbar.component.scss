@@ -6,9 +6,9 @@
 }
 
 .nav-wrapper {
-
     box-shadow: 20px -2px 16px 0px var(--primary-color);
 }
+
 .navbar {
     background-color: var(--white);
     color: var(--black);
@@ -16,12 +16,14 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    position: relative;
+    
     .logo {
         height: 4.5rem;
         margin-right: 1rem;
         border-radius: 8px;
-
     }
+    
     .brand {
         display: flex;
         align-items: center;
@@ -32,11 +34,49 @@
         margin-right: auto;
         padding-right: 1.5rem;
         border-right: 1px solid #e1e1e1;
+        
+        @media (max-width: 768px) {
+            border-right: none;
+            padding-right: 0;
+        }
     }
+    
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        
+        span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--black);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+        
+        &.active {
+            span:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            span:nth-child(2) {
+                opacity: 0;
+            }
+            span:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+        }
+    }
+    
     .nav-links {
         ul {
             list-style: none;
             display: flex;
+            margin: 0;
+            padding: 0;
 
             li {
                 a {
@@ -46,10 +86,11 @@
                     text-decoration: none;
                     color: var(--black);
                     height: 75px;
+                    
                     &:hover {
-                    background-color: var(--primary-color);
-                    color: var(--white);
-                    transition: background-color 0.3s ease-in-out;
+                        background-color: var(--primary-color);
+                        color: var(--white);
+                        transition: background-color 0.3s ease-in-out;
                     }
                 }
             }
@@ -57,15 +98,44 @@
     }
 }
 
-
-
-// Burger menu style 
-
-
-
-
 @media (max-width: 768px) {
-    .nav-links {
-        display: none;
+    .navbar {
+        .hamburger {
+            display: flex;
+        }
+        
+        .nav-links {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: var(--white);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            
+            &.active {
+                display: block;
+            }
+            
+            ul {
+                flex-direction: column;
+                
+                li {
+                    width: 100%;
+                    border-bottom: 1px solid #e1e1e1;
+                    
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                    
+                    a {
+                        height: auto;
+                        padding: 1rem;
+                        justify-content: flex-start;
+                    }
+                }
+            }
+        }
     }
 }

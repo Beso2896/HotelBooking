@@ -1,7 +1,7 @@
 .rooms-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 2rem;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -349,7 +349,7 @@
 // Responsive Design
 @media (max-width: 1024px) {
   .rooms-container {
-    padding: 16px;
+    padding: 2rem;
   }
 
   .filter-section {

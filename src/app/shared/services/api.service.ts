@@ -6,11 +6,20 @@ import { Injectable } from '@angular/core';
 })
 export class ApiService {
 
-  constructor(public http: HttpClient) { }
+    allBookings: any
+    public readonly API_BASE_URL = 'https://hotelbooking.stepprojects.ge/api';
 
-  getData(roomId: string) {
-    return this.http.get(`https://hotelbooking.stepprojects.ge/api/Rooms/GetRoom/${roomId}`);
-  }
+    constructor(public http: HttpClient) { }
 
-  
+    getData(roomId: string) {
+        return this.http.get(`https://hotelbooking.stepprojects.ge/api/Rooms/GetRoom/${roomId}`);
+    }
+
+    getBookings(bookingId:string) {
+        return this.http.get(`${this.API_BASE_URL}/Booking`).subscribe(data => {
+            console.log(data);
+            
+        })
+    }
+
 }

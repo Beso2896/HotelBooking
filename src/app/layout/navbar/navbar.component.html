@@ -4,17 +4,21 @@
         <img src="CompanyLogo/360_F_1317127381_6VLh1N60cqGMAlzxYnGxZ6l8hw0jWbOr.jpg" alt="Company Logo" class="logo" />
         <a class="brand" routerLink="/"><span id="h">Hotel</span> <span id="b">Booking</span></a>
 
+        <!-- Hamburger menu button -->
+        <button class="hamburger" (click)="toggleMenu()" [class.active]="isMenuOpen">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
         <!-- Navigation items -->
-        <div class="nav-links">
+        <div class="nav-links" [class.active]="isMenuOpen">
             <ul>
-                <li><a routerLink="/">Home</a></li>
-                <li><a routerLink="/hotels">Hotels</a></li>
-                <li><a routerLink="/rooms">Rooms</a></li>
-                <li><a routerLink="/booked-rooms">Booked Rooms</a></li>
+                <li><a routerLink="/" (click)="closeMenu()">Home</a></li>
+                <li><a routerLink="/hotels" (click)="closeMenu()">Hotels</a></li>
+                <li><a routerLink="/rooms" (click)="closeMenu()">Rooms</a></li>
+                <li><a routerLink="/booked-rooms" (click)="closeMenu()">Booked Rooms</a></li>
             </ul>
         </div>
     </nav>
 </div>
-
-

@@ -16,7 +16,6 @@ export class HomeComponent {
     constructor(private http: HttpClient, public apiService: ApiService) {
         this.http.get<any[]>('https://hotelbooking.stepprojects.ge/api/Rooms/GetAll').subscribe(data => {
         this.topRooms = this.getTopRooms(data);
-        
         });
     }
 
