@@ -13,10 +13,8 @@ export class BookedRoomsComponent  {
     allBookings: any
     private readonly API_BASE_URL = 'https://hotelbooking.stepprojects.ge/api';
 
-    // constructor (public http: HttpClient, apiService: ApiService) {
-    //     this.http.get('`${this.API_BASE_URL}/Booking`').subscribe(data => {
-    //         console.log(data);    
-    //     })
-    // }
+    constructor(private http: HttpClient, ApiService: ApiService) {
+        this.http.get(`${this.API_BASE_URL}`)
+    }
 
 }

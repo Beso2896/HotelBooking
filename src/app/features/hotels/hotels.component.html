@@ -11,7 +11,7 @@
     </div>
 
     <div class="hotels-grid">
-        <div class="hotel-card" *ngFor="let hotel of hotels">
+        <div class="hotel-card" *ngFor="let hotel of filteredHotels">
             <div class="hotel-image">
                 <img [src]="hotel.featuredImage" [alt]="hotel.name">
             </div>

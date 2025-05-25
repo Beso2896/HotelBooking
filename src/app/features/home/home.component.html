@@ -21,7 +21,6 @@
     <div class="main-container">
         <div class="divider"><span>Guest Favorite Rooms</span></div>
             <div class="rooms-container">
-                <!-- @for (item of topRooms; track $index) { -->
                     @for (item of topRooms; track $index) {
                     <a href="/GetRoom/{{item.id}}">
                         <app-hotel-room-card
@@ -34,7 +33,6 @@
                         </app-hotel-room-card>
                     </a>
                     }                    
-                <!-- }                         -->
             </div>
 
         <div class="divider"><span>USP Section</span></div>

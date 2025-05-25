@@ -11,7 +11,7 @@ import { ApiService } from '../../shared/services/api.service';
 export class HomeComponent {
 
     topRooms: any[] = [];
-    allRooms: any;
+
 
     constructor(private http: HttpClient, public apiService: ApiService) {
         this.http.get<any[]>('https://hotelbooking.stepprojects.ge/api/Rooms/GetAll').subscribe(data => {
@@ -25,8 +25,5 @@ export class HomeComponent {
         .sort((a, b) => (b.bookedDates?.length || 0) - (a.bookedDates?.length || 0))
         .slice(0, 6);
     }
-
-
-
 }
 

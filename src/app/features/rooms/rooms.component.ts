@@ -52,16 +52,16 @@ export class RoomsComponent implements OnInit {
   loading = false;
   error: string | null = null;
 
-  // Filter form values
+  
   selectedRoomTypeId: number = 0;
   priceFrom: number | null = null;
   priceTo: number | null = null;
   checkInDate: string = '';
   checkOutDate: string = '';
 
-  // Date restrictions
-  minDate = new Date(); // Today's date
-  minCheckOutDate = new Date(); // Will be updated based on check-in date
+  
+  minDate = new Date(); 
+  minCheckOutDate = new Date(); 
 
   private readonly baseUrl = 'https://hotelbooking.stepprojects.ge/api/Rooms';
 
@@ -75,7 +75,7 @@ export class RoomsComponent implements OnInit {
     this.loading = true;
     this.error = null;
 
-    // Load room types and all rooms
+    
     Promise.all([
       this.getRoomTypes().toPromise(),
       this.getAllRooms().toPromise()
@@ -103,13 +103,13 @@ export class RoomsComponent implements OnInit {
   }
 
   onCheckInDateChange(): void {
-    // Update minimum checkout date to be at least one day after check-in
+    
     if (this.checkInDate) {
       const checkInDateObj = new Date(this.checkInDate);
       this.minCheckOutDate = new Date(checkInDateObj);
       this.minCheckOutDate.setDate(checkInDateObj.getDate() + 1);
       
-      // If checkout date is before the new minimum, reset it
+      
       if (this.checkOutDate && new Date(this.checkOutDate) <= checkInDateObj) {
         this.checkOutDate = '';
       }
@@ -122,14 +122,14 @@ export class RoomsComponent implements OnInit {
     this.loading = true;
     this.error = null;
 
-    // Always start by getting all rooms, then apply filters client-side
+    
     this.getAllRooms().subscribe({
       next: (allRooms) => {
         console.log('All rooms response:', allRooms);
         
         let filteredRooms = allRooms;
 
-        // Apply room type filter
+        
         if (this.selectedRoomTypeId > 0) {
           console.log('Filtering by room type ID:', this.selectedRoomTypeId, typeof this.selectedRoomTypeId);
           console.log('Room types in data:', [...new Set(allRooms.map(r => r.roomTypeId))]);
@@ -144,7 +144,7 @@ export class RoomsComponent implements OnInit {
           console.log(`After room type filter: ${filteredRooms.length} rooms found`, filteredRooms);
         }
 
-        // Apply price filters
+        
         if (this.priceFrom && this.priceFrom > 0) {
           filteredRooms = filteredRooms.filter(room => room.pricePerNight >= this.priceFrom!);
           console.log('After min price filter:', filteredRooms);
@@ -155,7 +155,7 @@ export class RoomsComponent implements OnInit {
           console.log('After max price filter:', filteredRooms);
         }
 
-        // Apply date availability filter
+        
         if (this.checkInDate && this.checkOutDate) {
           filteredRooms = this.filterRoomsByAvailability(filteredRooms, this.checkInDate, this.checkOutDate);
           console.log('After availability filter:', filteredRooms);
@@ -177,19 +177,19 @@ export class RoomsComponent implements OnInit {
     const checkOut = new Date(checkOutDate);
     
     return rooms.filter(room => {
-      // Check if any booked date falls within the requested date range
+      
       const hasConflict = room.bookedDates.some(bookedDate => {
         const bookedDateObj = new Date(bookedDate.date);
-        // Remove time component for date comparison
+        
         const bookedDateOnly = new Date(bookedDateObj.getFullYear(), bookedDateObj.getMonth(), bookedDateObj.getDate());
         const checkInOnly = new Date(checkIn.getFullYear(), checkIn.getMonth(), checkIn.getDate());
         const checkOutOnly = new Date(checkOut.getFullYear(), checkOut.getMonth(), checkOut.getDate());
         
-        // Check if booked date falls within the stay period (inclusive of check-in, exclusive of check-out)
+        
         return bookedDateOnly >= checkInOnly && bookedDateOnly < checkOutOnly;
       });
       
-      return !hasConflict; // Return rooms that have no booking conflicts
+      return !hasConflict; 
     });
   }
 
@@ -220,17 +220,17 @@ export class RoomsComponent implements OnInit {
   }
 
   onResetFilters(): void {
-    // Reset all filter values
+    
     this.selectedRoomTypeId = 0;
     this.priceFrom = null;
     this.priceTo = null;
     this.checkInDate = '';
     this.checkOutDate = '';
 
-    // Reset date restrictions
+    
     this.minCheckOutDate = new Date();
 
-    // Load all rooms again
+    
     this.loading = true;
     this.error = null;
 
@@ -263,7 +263,7 @@ export class RoomsComponent implements OnInit {
         1: 'The Biltmore Hotel Tbilisi',
         2: 'Courtyard by Marriott Tbilisi',
         3: 'Radisson Blu Iveria Hotel Tbilisi',
-        // Add more hotels as needed
+        
     };
     
     return hotelMap[hotelId] || 'Hotel Name Not Available';
